@@ -1,15 +1,15 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { useRegisterViewModel } from "./userRegister.viewModel";
 import { FC } from "react";
 
 export const RegisterView: FC<ReturnType<typeof useRegisterViewModel>> = ({
-  userData,
-  setUserData,
+  onSubmit,
 }) => {
   return (
     <View className="flex-1 items-center justify-center">
-      <Text>Register</Text>
-      <Text>{userData.name}</Text>
+      <TouchableOpacity onPress={onSubmit}>
+        <Text>Register</Text>
+      </TouchableOpacity>
     </View>
   );
 };

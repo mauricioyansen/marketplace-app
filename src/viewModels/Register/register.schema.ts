@@ -6,7 +6,7 @@ export const registerSchema = yup.object().shape({
     .required("Name is required")
     .min(3, "Name must be at least 3 characters"),
   email: yup.string().email("Invalid email").required("Email is required"),
-  avatarUrl: yup.string().url("Invalid URL"),
+  // avatarUrl: yup.string().url("Invalid URL"),
   phone: yup
     .string()
     .required("Phone is required")
@@ -20,3 +20,5 @@ export const registerSchema = yup.object().shape({
     .oneOf([yup.ref("password")], "Passwords must match")
     .required("Confirm Password is required"),
 });
+
+export type RegisterFormData = yup.InferType<typeof registerSchema>;
