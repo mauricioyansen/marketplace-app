@@ -1,29 +1,74 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity, ScrollView } from "react-native";
 import { useRegisterViewModel } from "./userRegister.viewModel";
-import { FC, useState } from "react";
-import { AppInput } from "../../shared/components/AppInput";
-import { Controller } from "react-hook-form";
+import { FC } from "react";
 import { AppInputController } from "../../shared/components/AppInputController";
+import { AuthFormHeader } from "../../shared/components/AuthFormHeader";
+import { router } from "expo-router";
+import { KeyboardContainer } from "../../shared/components/KeyboardContainer";
 
 export const RegisterView: FC<ReturnType<typeof useRegisterViewModel>> = ({
   onSubmit,
   control,
 }) => {
-  const [email, setEmail] = useState("");
-
   return (
-    <View className="flex-1 items-center justify-center">
-      <AppInputController
-        leftIcon="mail-outline"
-        label="EMAIL"
-        control={control}
-        name="email"
-        // errors={{ email: { message: "Invalid email" } }}
-      />
+    <KeyboardContainer>
+      <ScrollView className="flex-1 px-10">
+        <AuthFormHeader
+          title="Create your account"
+          subtitle="Fill in the details to get started"
+        />
 
-      <TouchableOpacity onPress={onSubmit}>
-        <Text>Register</Text>
-      </TouchableOpacity>
-    </View>
+        <AppInputController
+          leftIcon="person-outline"
+          label="NAME"
+          control={control}
+          name="name"
+          placeholder="Your name"
+        />
+
+        <AppInputController
+          leftIcon="call-outline"
+          label="PHONE"
+          control={control}
+          name="phone"
+          placeholder="(00) 0 0000-0000"
+        />
+
+        <Text className="text-base mt-6 font-bold text-gray-500">Access</Text>
+
+        <AppInputController
+          leftIcon="mail-outline"
+          label="EMAIL"
+          control={control}
+          name="email"
+          placeholder="mail@example.com"
+        />
+
+        <AppInputController
+          leftIcon="lock-closed-outline"
+          label="PASSWORD"
+          control={control}
+          name="password"
+          secureTextEntry
+          placeholder="Your password"
+        />
+
+        <AppInputController
+          leftIcon="lock-closed-outline"
+          label="CONFIRM PASSWORD"
+          control={control}
+          name="confirmPassword"
+          secureTextEntry
+          placeholder="Confirm your password"
+        />
+        <TouchableOpacity onPress={onSubmit}>
+          <Text>Register</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => router.push("/login")}>
+          <Text>Sign In</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </KeyboardContainer>
   );
 };

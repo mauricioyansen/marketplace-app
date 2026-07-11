@@ -1,14 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
-import {
-  RegisterHttpResponse,
-  RegisterHttpRequest,
-} from "../../interfaces/http/register";
+import { RegisterHttpRequest } from "../../interfaces/http/register";
 import { register } from "../../services/auth.service";
+import { AuthHttpResponse } from "../../interfaces/http/auth-response";
 
 export const useRegisterMutation = () => {
   const mutation = useMutation({
     mutationFn: (userData: RegisterHttpRequest) => register(userData),
-    onSuccess: (res: RegisterHttpResponse) => {
+    onSuccess: (res: AuthHttpResponse) => {
       console.log("Register response:", res);
       console.log("Access token:", res.token);
       console.log("Refresh token:", res.refreshToken);
