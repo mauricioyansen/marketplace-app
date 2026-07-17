@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, ScrollView, View } from "react-native";
+import { Text, TouchableOpacity, ScrollView, View, Image } from "react-native";
 import { useRegisterViewModel } from "./userRegister.viewModel";
 import { FC } from "react";
 import { AppInputController } from "../../shared/components/AppInputController";
@@ -12,6 +12,7 @@ export const RegisterView: FC<ReturnType<typeof useRegisterViewModel>> = ({
   onSubmit,
   control,
   handleSelectAvatar,
+  avatarUri,
 }) => {
   return (
     <KeyboardContainer>
@@ -21,8 +22,19 @@ export const RegisterView: FC<ReturnType<typeof useRegisterViewModel>> = ({
           subtitle="Fill in the details to get started"
         />
 
-        <TouchableOpacity onPress={handleSelectAvatar}>
-          <Ionicons name="cloud-upload-outline" size={32} />
+        <TouchableOpacity
+          className="w-[120px] h-[120px] rounded-xl items-center justify-center bg-shape self-center mb-8"
+          onPress={handleSelectAvatar}
+        >
+          {avatarUri ? (
+            <Image
+              className="size-full rounded-xl"
+              source={{ uri: avatarUri }}
+              resizeMode="cover"
+            />
+          ) : (
+            <Ionicons name="cloud-upload-outline" size={32} />
+          )}
         </TouchableOpacity>
 
         <AppInputController

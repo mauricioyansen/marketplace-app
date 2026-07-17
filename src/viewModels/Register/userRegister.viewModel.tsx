@@ -4,11 +4,17 @@ import { RegisterFormData, registerSchema } from "./register.schema";
 import { useRegisterMutation } from "../../shared/queries/auth/use-register.mutation";
 import { useUserStore } from "../../shared/store/user-store";
 import { useImg } from "../../shared/hooks/useImg";
+import { useState } from "react";
+import { CameraType } from "expo-image-picker";
+import { useUploadAvatarMutation } from "../../shared/queries/auth/use-upload-avatar.mutation";
 
 export const useRegisterViewModel = () => {
-  const userRegisterMutation = useRegisterMutation();
-  const { setSession, user } = useUserStore();
-  const { handleSelectImg } = useImg();
+  const { updateUser } = useUserStore();
+  const [avatarUri, setAvatarUri] = useState<string | null>(null);
+  const { handleSelectImg } = useImg({
+    callback: setAvatarUri,
+    cameraType: CameraType.front,
+  });
 
   const handleSelectAvatar = async () => {
     await handleSelectImg();
@@ -29,17 +35,24 @@ export const useRegisterViewModel = () => {
     },
   });
 
-  const onSubmit = handleSubmit(async (userData) => {
-    const { confirmPassword, ...rest } = userData;
-    const mutationRes = await userRegisterMutation.mutateAsync(rest);
-    setSession({
-      user: mutationRes.user,
-      token: mutationRes.token,
-      refreshToken: mutationRes.refreshToken,
-    });
+  const uploadAvatarMutation = useUploadAvatarMutation();
+
+  const userRegisterMutation = useRegisterMutation({
+    onSuccess: async () => {
+      if (avatarUri) {
+        const { url } = await uploadAvatarMutation.mutateAsync(avatarUri);
+
+        console.log({ url });
+
+        updateUser({ avatarUrl: url });
+      }
+    },
   });
 
-  console.log(user);
+  const onSubmit = handleSubmit(async (userData) => {
+    const { confirmPassword, ...rest } = userData;
+    await userRegisterMutation.mutateAsync(rest);
+  });
 
-  return { control, onSubmit, errors, handleSelectAvatar };
+  return { control, onSubmit, errors, handleSelectAvatar, avatarUri };
 };

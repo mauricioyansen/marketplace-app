@@ -1,6 +1,7 @@
 import * as ImagePicker from "expo-image-picker";
 import { ImagePickerOptions } from "expo-image-picker";
 import { useCallback, useState } from "react";
+import { Alert, Linking } from "react-native";
 import { Toast } from "toastify-react-native";
 
 export const useGallery = (pickerOpt: ImagePickerOptions) => {
@@ -13,6 +14,22 @@ export const useGallery = (pickerOpt: ImagePickerOptions) => {
       const currentStatus = status === "granted";
 
       if (!currentStatus) {
+        Alert.alert(
+          "Permission denied",
+          "This app needs permission to access your gallery",
+          [
+            {
+              text: "Cancel",
+              style: "cancel",
+            },
+            {
+              text: "Open configs",
+              onPress: () => {
+                Linking.openSettings();
+              },
+            },
+          ],
+        );
         Toast.error("This app needs permission to access your gallery", "top");
       }
 
