@@ -15,12 +15,23 @@ export const register = async (userData: RegisterHttpRequest) => {
 };
 
 export const login = async (userData: LoginHttpRequest) => {
-  const { data } = await marketplaceApi.post<AuthHttpResponse>(
-    "/auth/login",
-    userData,
-  );
+  try {
+    const { data } = await marketplaceApi.post<AuthHttpResponse>(
+      "/auth/login",
+      userData,
+    );
 
-  return data;
+    return data;
+  } catch (error: any) {
+    const status = error?.response?.status;
+    const message = error?.response?.data?.message || error?.message;
+
+    throw {
+      status,
+      message,
+      originalError: error,
+    };
+  }
 };
 
 export const uploadAvatar = async (avatarUri: string) => {

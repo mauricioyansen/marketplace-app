@@ -92,7 +92,7 @@ export const RegisterView: FC<ReturnType<typeof useRegisterViewModel>> = ({
           <AppButton
             className="mb-6"
             variant="outlined"
-            onPress={() => router.push("/login")}
+            onPress={() => router.push("/(public)/login")}
           >
             Login
           </AppButton>
