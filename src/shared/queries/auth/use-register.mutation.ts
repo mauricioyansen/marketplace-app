@@ -21,10 +21,10 @@ export const useRegisterMutation = ({
         token: res.token,
         refreshToken: res.refreshToken,
       });
-      console.log("Register response:", res);
-      console.log("Access token:", res.token);
-      console.log("Refresh token:", res.refreshToken);
-      console.log("User:", res.user);
+      // console.log("Register response:", res);
+      // console.log("Access token:", res.token);
+      // console.log("Refresh token:", res.refreshToken);
+      // console.log("User:", res.user);
       onSuccess?.();
     },
     onError: (error: any) => {

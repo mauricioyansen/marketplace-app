@@ -6,7 +6,7 @@ export const useUploadAvatarMutation = () => {
   const mutation = useMutation({
     mutationFn: uploadAvatar,
     onSuccess: (res) => {
-      console.log(res);
+      console.log("AVATAR", res);
     },
     onError: (err) => {
       console.log(err);

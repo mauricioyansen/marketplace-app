@@ -26,13 +26,13 @@ export const useLoginMutation = () => {
     mutationFn: (userData: LoginHttpRequest) => login(userData),
     onSuccess: (res: AuthHttpResponse) => {
       setSession(res);
-      console.log("Login response:", res);
-      console.log("Access token:", res.token);
-      console.log("Refresh token:", res.refreshToken);
-      console.log("User:", res.user);
+      // console.log("Login response:", res);
+      // console.log("Access token:", res.token);
+      // console.log("Refresh token:", res.refreshToken);
+      // console.log("User:", res.user);
     },
     onError: (error: any) => {
-      console.log("Login error:", error);
+      // console.log("Login error:", error);
       Alert.alert("Erro ao entrar", getErrorMessage(error));
     },
   });

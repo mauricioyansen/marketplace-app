@@ -46,7 +46,6 @@ export class MarketplaceApi {
     this.instance.interceptors.request.use(
       async (config) => {
         const userData = await AsyncStorage.getItem("marketplace-auth");
-        console.log(userData);
 
         if (userData) {
           const {
