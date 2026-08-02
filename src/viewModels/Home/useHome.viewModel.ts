@@ -34,5 +34,6 @@ export const useHomeViewModel = () => {
     handleEndReached,
     hasNextPage,
     isFetchingNextPage,
+    isRefetching,
   };
 };
