@@ -10,6 +10,7 @@ import { useProductCardViewModel } from "./useProductCard.viewModel";
 import { Ionicons } from "@expo/vector-icons";
 import { colors } from "../../../../styles/colors";
 import { BASE_URL } from "../../../../shared/api/marketplace";
+import { AppPriceText } from "../../../../shared/components/AppPriceText";
 
 const fallbackImage = require("../../../../assets/images/logo.png");
 
@@ -40,7 +41,7 @@ const normalizeImageUrl = (photo?: string | null) => {
 
 export const ProductCardView: FC<
   ReturnType<typeof useProductCardViewModel>
-> = ({ product }) => {
+> = ({ product, formatRating }) => {
   const imageUri = normalizeImageUrl(product.photo);
   const { width } = useWindowDimensions();
   const cardWidth = (width - 48) / 2;
@@ -62,9 +63,7 @@ export const ProductCardView: FC<
           style={{ borderBottomLeftRadius: 8 }}
         >
           <Ionicons name="star" size={12} color={colors["blue-base"]} />
-          <Text className="text-sm font-semibold ml-1">
-            {product.ratingCount}
-          </Text>
+          <Text className="text-sm font-semibold ml-1">{formatRating}</Text>
         </View>
       </View>
 
@@ -74,7 +73,11 @@ export const ProductCardView: FC<
         </Text>
 
         <View className="flex-row items-center justify-between">
-          <Text>R$ {product.value}</Text>
+          <AppPriceText
+            classNameCurrency="text-small"
+            classNameValue="text-lg font-bold flex-1"
+            value={Number(product.value)}
+          />
         </View>
       </View>
     </TouchableOpacity>

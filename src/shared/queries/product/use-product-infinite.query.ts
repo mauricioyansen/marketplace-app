@@ -1,7 +1,14 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getProducts } from "../../services/product.service";
+import { FilterState } from "../../store/use-filter-store";
 
-export const useProductInfiniteQuery = () => {
+interface ProductsInfiniteQueryParams {
+  filters?: FilterState;
+}
+
+export const useProductInfiniteQuery = ({
+  filters,
+}: ProductsInfiniteQueryParams) => {
   const {
     data,
     error,
@@ -16,6 +23,12 @@ export const useProductInfiniteQuery = () => {
       try {
         const res = await getProducts({
           pagination: { page: pageParam, perPage: 10 },
+          filters: {
+            categoryIds: filters?.selectedCategory || [],
+            minValue: filters?.valueMin || undefined,
+            maxValue: filters?.valueMax || undefined,
+            searchText: filters?.searchText || undefined,
+          },
         });
 
         return res;
@@ -29,7 +42,7 @@ export const useProductInfiniteQuery = () => {
         : undefined;
     },
     initialPageParam: 1,
-    queryKey: ["products"],
+    queryKey: ["products", filters],
     staleTime: 1000 * 60 * 1,
   });
 
