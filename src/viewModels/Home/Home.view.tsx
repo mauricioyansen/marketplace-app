@@ -1,7 +1,5 @@
 import { FlatList, RefreshControl } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { HomeHeader } from "./components/Header";
-import { SearchInput } from "./components/SearchInput";
 import { ProductCard } from "./components/ProductCard";
 import { FC } from "react";
 import { useHomeViewModel } from "./useHome.viewModel";

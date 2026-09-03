@@ -9,35 +9,9 @@ import {
 import { useProductCardViewModel } from "./useProductCard.viewModel";
 import { Ionicons } from "@expo/vector-icons";
 import { colors } from "../../../../styles/colors";
-import { BASE_URL } from "../../../../shared/api/marketplace";
 import { AppPriceText } from "../../../../shared/components/AppPriceText";
-
-const fallbackImage = require("../../../../assets/images/logo.png");
-
-const normalizeImageUrl = (photo?: string | null) => {
-  if (!photo) return null;
-
-  const value = photo.trim();
-
-  if (!value) return null;
-
-  if (
-    value.startsWith("http://localhost") ||
-    value.startsWith("https://localhost")
-  ) {
-    const path = value.replace(
-      /^https?:\/\/(localhost|127\.0\.0\.1)(?::\d+)?/i,
-      "",
-    );
-    return `${BASE_URL}${path.startsWith("/") ? path : `/${path}`}`;
-  }
-
-  if (value.startsWith("/")) {
-    return `${BASE_URL}${value}`;
-  }
-
-  return value;
-};
+import { router } from "expo-router";
+import { normalizeImageUrl } from "../../../../shared/utils/normalizeImageUrl";
 
 export const ProductCardView: FC<
   ReturnType<typeof useProductCardViewModel>
@@ -48,12 +22,13 @@ export const ProductCardView: FC<
 
   return (
     <TouchableOpacity
+      onPress={() => router.push(`/product/${product.id}`)}
       style={{ width: cardWidth }}
       className="rounded-xl shadow-sm overflow-hidden h-[157px] p-1 bg-white mb-4"
     >
       <View>
         <Image
-          source={imageUri ? { uri: imageUri } : fallbackImage}
+          source={imageUri}
           className="w-full h-24 rounded-md"
           resizeMode="cover"
         />
