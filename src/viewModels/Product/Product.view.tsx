@@ -26,6 +26,7 @@ export const ProductView: FC<ReturnType<typeof useProductViewModel>> = ({
   handleLoadMore,
   handleRefetch,
   handleEndReached,
+  handleAddToCart,
 }) => {
   if (error) return <ProductError />;
 
@@ -45,7 +46,10 @@ export const ProductView: FC<ReturnType<typeof useProductViewModel>> = ({
         ListEmptyComponent={<EmptyList isLoadingComments={isCommentsLoading} />}
         contentContainerClassName="pb-6"
       />
-      <AddToCardFooter product={productDetails} />
+      <AddToCardFooter
+        product={productDetails}
+        handleAddToCart={handleAddToCart}
+      />
     </SafeAreaView>
   );
 };

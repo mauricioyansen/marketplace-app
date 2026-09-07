@@ -7,9 +7,13 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 interface AddToCardFooterParams {
   product: ProductInterface;
+  handleAddToCart: () => void;
 }
 
-export const AddToCardFooter: FC<AddToCardFooterParams> = ({ product }) => {
+export const AddToCardFooter: FC<AddToCardFooterParams> = ({
+  product,
+  handleAddToCart,
+}) => {
   const { bottom } = useSafeAreaInsets();
 
   return (
@@ -19,7 +23,11 @@ export const AddToCardFooter: FC<AddToCardFooterParams> = ({ product }) => {
     >
       <AppPriceText value={Number(product.value)} />
 
-      <AppButton leftIcon="cart-outline" className="w-36 h-[40px]">
+      <AppButton
+        onPress={handleAddToCart}
+        leftIcon="cart-outline"
+        className="w-36 h-[40px]"
+      >
         Add to cart
       </AppButton>
     </View>
