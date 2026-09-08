@@ -5,6 +5,8 @@ import { useModalStore } from "../../shared/store/modal-store";
 import { useCartStore } from "../../shared/store/cart-store";
 import { AddToCartSuccessModal } from "./components/AddToCartSuccessModal";
 import { createElement } from "react";
+import { ReviewBottomSheet } from "./components/ReviewBottomSheet";
+import { useBottomSheetStore } from "../../shared/store/bottomSheet-store";
 
 export const useProductViewModel = (productId: number) => {
   const {
@@ -28,6 +30,8 @@ export const useProductViewModel = (productId: number) => {
   console.log(products);
 
   const { open, close } = useModalStore();
+
+  const { open: openBottomSheet } = useBottomSheetStore();
 
   const handleLoadMore = () => {
     if (hasNextPage && !isFetchingNextPage) {
@@ -75,6 +79,14 @@ export const useProductViewModel = (productId: number) => {
     );
   };
 
+  const handleOpenReviewBottomSheet = () => {
+    if (!productDetails) return;
+
+    openBottomSheet({
+      content: createElement(ReviewBottomSheet, { productId }),
+    });
+  };
+
   return {
     productDetails,
     isLoading,
@@ -91,5 +103,6 @@ export const useProductViewModel = (productId: number) => {
     handleRefetch,
     handleEndReached,
     handleAddToCart,
+    handleOpenReviewBottomSheet,
   };
 };

@@ -9,9 +9,13 @@ import { router } from "expo-router";
 
 interface HeaderParams {
   productDetails: GetProductDetailsInterface;
+  handleOpenReviewBottomSheet: () => void;
 }
 
-export const Header: FC<HeaderParams> = ({ productDetails }) => {
+export const Header: FC<HeaderParams> = ({
+  productDetails,
+  handleOpenReviewBottomSheet,
+}) => {
   const imageSource = normalizeImageUrl(productDetails.photo);
 
   return (
@@ -95,7 +99,7 @@ export const Header: FC<HeaderParams> = ({ productDetails }) => {
 
         <View className="flex-row justify-between items-center pt-4 border-t border-gray-200">
           <Text className="text-lg font-bold text-gray-800">Reviews</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleOpenReviewBottomSheet}>
             <Text className="text-purple-base text-base font-medium">
               Make a review
             </Text>
