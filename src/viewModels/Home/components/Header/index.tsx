@@ -2,6 +2,7 @@ import { Image, TouchableOpacity, View, Text } from "react-native";
 import { useUserStore } from "../../../../shared/store/user-store";
 import { Ionicons } from "@expo/vector-icons";
 import { colors } from "../../../../styles/colors";
+import { normalizeImageUrl } from "../../../../shared/utils/normalizeImageUrl";
 
 export const HomeHeader = () => {
   const { user } = useUserStore();
@@ -12,7 +13,7 @@ export const HomeHeader = () => {
         <View className="relative">
           {user?.avatarUrl ? (
             <Image
-              source={{ uri: user?.avatarUrl }}
+              source={normalizeImageUrl(user.avatarUrl)}
               className="size-[56px] rounded-xl border-shape"
             />
           ) : (

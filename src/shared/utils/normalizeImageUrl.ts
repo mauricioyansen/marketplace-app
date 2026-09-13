@@ -9,6 +9,10 @@ export const normalizeImageUrl = (photo?: string | null) => {
 
   if (!value) return fallbackImage;
 
+  if (value.startsWith("localhost:") || value.startsWith("127.0.0.1:")) {
+    return { uri: `http://${value}` };
+  }
+
   if (
     value.startsWith("http://localhost") ||
     value.startsWith("https://localhost") ||

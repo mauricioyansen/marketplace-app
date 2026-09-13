@@ -40,7 +40,7 @@ export const CommentItem: FC<CommentItemParams> = ({ comment }) => {
             {isCurrentUser && (
               <View className="bg-blue-base px-2 py-1 rounded-full ml-2">
                 <Text className="text-white text-xs font-bold uppercase">
-                  Você
+                  You
                 </Text>
               </View>
             )}
