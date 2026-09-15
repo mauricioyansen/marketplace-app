@@ -67,7 +67,7 @@ export class MarketplaceApi {
     this.instance.interceptors.response.use(
       (res) => res,
       async (err) => {
-        alert("REFRESH FN");
+        // alert("REFRESH FN");
 
         const originalReq = err.config;
 
