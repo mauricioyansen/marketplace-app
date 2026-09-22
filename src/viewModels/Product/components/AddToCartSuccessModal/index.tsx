@@ -35,9 +35,7 @@ export const AddToCartSuccessModal: FC<AddToCartSuccessModalParams> = ({
       </Text>
 
       <View className="gap-3">
-        <AppButton leftIcon="cart-outline" onPress={onGoToCart}>
-          View Cart
-        </AppButton>
+        <AppButton onPress={onGoToCart}>View Cart</AppButton>
 
         <AppButton variant="outlined" onPress={onContinueShopping}>
           Continue Shopping
