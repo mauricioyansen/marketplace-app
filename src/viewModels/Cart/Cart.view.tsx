@@ -28,7 +28,7 @@ export const CartView: FC<ReturnType<typeof useCartViewModel>> = ({
             <CartFooter
               openCartBottomSheet={openCartBottomSheet}
               creditCards={creditCards}
-              loadingCreditCards={isCreditCardsLoading}
+              isLoadingCreditCards={isCreditCardsLoading}
             />
           ) : null
         }
