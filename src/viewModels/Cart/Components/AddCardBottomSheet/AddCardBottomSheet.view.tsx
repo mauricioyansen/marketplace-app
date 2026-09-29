@@ -5,6 +5,7 @@ import { AppButton } from "../../../../shared/components/AppButton";
 import { colors } from "../../../../styles/colors";
 import { useAddCardBottomSheetViewModel } from "./useAddCardBottomSheet.viewModel";
 import { AppInputController } from "../../../../shared/components/AppInputController";
+import { CreditCard } from "./components/CreditCard";
 
 export const AddCardBottomSheetView: FC<
   ReturnType<typeof useAddCardBottomSheetViewModel>
@@ -13,6 +14,10 @@ export const AddCardBottomSheetView: FC<
   control,
   expirationDateMask,
   cardNumberMask,
+  handleFieldBlur,
+  handleFieldFocus,
+  isFlipped,
+  focusedField,
 }) => {
   return (
     <ScrollView className="flex-1">
@@ -26,6 +31,8 @@ export const AddCardBottomSheetView: FC<
           </TouchableOpacity>
         </View>
 
+        <CreditCard focusedField={focusedField} isFlipped={isFlipped} />
+
         <View className="mt-6 gap-4">
           <AppInputController
             control={control}
@@ -33,6 +40,8 @@ export const AddCardBottomSheetView: FC<
             leftIcon="person-outline"
             label="FULL NAME"
             placeholder="Full Name"
+            onFocus={() => handleFieldFocus("name")}
+            onBlur={handleFieldBlur}
           />
           <AppInputController
             control={control}
@@ -43,6 +52,8 @@ export const AddCardBottomSheetView: FC<
             keyboardType="numeric"
             mask={cardNumberMask}
             maxLength={19}
+            onFocus={() => handleFieldFocus("number")}
+            onBlur={handleFieldBlur}
           />
           <View className="flex-row gap-4">
             <View className="flex-1">
@@ -55,6 +66,8 @@ export const AddCardBottomSheetView: FC<
                 keyboardType="numeric"
                 maxLength={5}
                 mask={expirationDateMask}
+                onFocus={() => handleFieldFocus("expiry")}
+                onBlur={handleFieldBlur}
               />
             </View>
             <View className="flex-1">
@@ -65,6 +78,8 @@ export const AddCardBottomSheetView: FC<
                 label="CVV"
                 placeholder="000"
                 keyboardType="numeric"
+                onFocus={() => handleFieldFocus("cvv")}
+                onBlur={handleFieldBlur}
               />
             </View>
           </View>
