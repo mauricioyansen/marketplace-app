@@ -52,5 +52,6 @@ export const useFilterViewModel = () => {
     selectedCategories: filterState.selectedCategory,
     handleApplyFilters,
     handleResetFilters,
+    close,
   };
 };

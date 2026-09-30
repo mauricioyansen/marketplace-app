@@ -1,6 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-
 import { CreditCardFormData, creditCardSchema } from "./credit-card.schema";
 import { useCreateCreditCardMutation } from "../../../../shared/queries/credit-cards/use-create-credit-card.mutation";
 import { useBottomSheetStore } from "../../../../shared/store/bottomSheet-store";
@@ -110,7 +109,7 @@ export const useAddCardBottomSheetViewModel = () => {
 
   const isFlipped = focusedField === "cvv";
 
-  console.log(focusedField);
+  const watchedValue = watch();
 
   return {
     handleCreateCreditCard,
@@ -121,5 +120,12 @@ export const useAddCardBottomSheetViewModel = () => {
     handleFieldFocus,
     handleFieldBlur,
     focusedField,
+    cardData: {
+      number: watchedValue.number,
+      name: watchedValue.name,
+      expiry: watchedValue.expirationDate,
+      cvv: watchedValue.CVV,
+    },
+    closeBottomSheet,
   };
 };

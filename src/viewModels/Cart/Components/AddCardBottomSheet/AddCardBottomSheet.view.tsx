@@ -18,6 +18,8 @@ export const AddCardBottomSheetView: FC<
   handleFieldFocus,
   isFlipped,
   focusedField,
+  cardData,
+  closeBottomSheet,
 }) => {
   return (
     <ScrollView className="flex-1">
@@ -26,12 +28,19 @@ export const AddCardBottomSheetView: FC<
           <Text className="text-base font-bold text-gray-500">
             Add new card
           </Text>
-          <TouchableOpacity className="w-8 items-center justify-center border border-gray-400 rounded-[10px]">
+          <TouchableOpacity
+            onPress={closeBottomSheet}
+            className="w-8 items-center justify-center border border-gray-400 rounded-[10px]"
+          >
             <Ionicons name="close-outline" size={24} color={colors.gray[400]} />
           </TouchableOpacity>
         </View>
 
-        <CreditCard focusedField={focusedField} isFlipped={isFlipped} />
+        <CreditCard
+          cardData={cardData}
+          focusedField={focusedField}
+          isFlipped={isFlipped}
+        />
 
         <View className="mt-6 gap-4">
           <AppInputController
@@ -80,6 +89,7 @@ export const AddCardBottomSheetView: FC<
                 keyboardType="numeric"
                 onFocus={() => handleFieldFocus("cvv")}
                 onBlur={handleFieldBlur}
+                maxLength={3}
               />
             </View>
           </View>

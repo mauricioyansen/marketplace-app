@@ -11,7 +11,6 @@ export const useHomeViewModel = () => {
 
   const {
     products,
-    error,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,

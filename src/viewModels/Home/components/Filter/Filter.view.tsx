@@ -16,12 +16,13 @@ export const FilterView: FC<ReturnType<typeof useFilterViewModel>> = ({
   selectedCategories,
   handleApplyFilters,
   handleResetFilters,
+  close,
 }) => {
   return (
     <View>
       <View className="flex-row items-center justify-between py-4 px-6">
         <Text className="text-lg font-bold text-gray-900">Filter products</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={close}>
           <Ionicons name="close" size={20} color={colors["purple-base"]} />
         </TouchableOpacity>
       </View>
