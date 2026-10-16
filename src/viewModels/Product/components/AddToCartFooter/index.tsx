@@ -5,12 +5,12 @@ import { AppPriceText } from "../../../../shared/components/AppPriceText";
 import { ProductInterface } from "../../../../shared/interfaces/product";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-interface AddToCardFooterParams {
+interface AddToCartFooterParams {
   product: ProductInterface;
   handleAddToCart: () => void;
 }
 
-export const AddToCardFooter: FC<AddToCardFooterParams> = ({
+export const AddToCartFooter: FC<AddToCartFooterParams> = ({
   product,
   handleAddToCart,
 }) => {

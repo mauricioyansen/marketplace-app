@@ -4,11 +4,15 @@ import { useGetProductDetailQuery } from "../../shared/queries/product/use-get-p
 import { useModalStore } from "../../shared/store/modal-store";
 import { useCartStore } from "../../shared/store/cart-store";
 import { AddToCartSuccessModal } from "./components/AddToCartSuccessModal";
-import { createElement } from "react";
+import { createElement, useEffect } from "react";
 import { ReviewBottomSheet } from "./components/ReviewBottomSheet";
 import { useBottomSheetStore } from "../../shared/store/bottomSheet-store";
+import { localNotificationsService } from "../../shared/services/local-notifications.service";
 
-export const useProductViewModel = (productId: number) => {
+export const useProductViewModel = (
+  productId: number,
+  openFeedbackBottomSheet?: boolean,
+) => {
   const {
     data: productDetails,
     isLoading,
@@ -27,7 +31,6 @@ export const useProductViewModel = (productId: number) => {
   } = useGetProductCommentsInfiniteQuery(productId);
 
   const { addProduct, products } = useCartStore();
-  console.log(products);
 
   const { open, close } = useModalStore();
 
@@ -69,6 +72,12 @@ export const useProductViewModel = (productId: number) => {
       image: productDetails.photo,
     });
 
+    localNotificationsService.scheduleCartReminder({
+      delayInSeconds: 30 * 60, // Para testar, troque temporariamente por 5 segundos.
+      productId: productDetails.id,
+      productName: productDetails.name,
+    });
+
     open(
       createElement(AddToCartSuccessModal, {
         productName: productDetails.name,
@@ -86,6 +95,12 @@ export const useProductViewModel = (productId: number) => {
       content: createElement(ReviewBottomSheet, { productId }),
     });
   };
+
+  useEffect(() => {
+    if (openFeedbackBottomSheet) {
+      handleOpenReviewBottomSheet();
+    }
+  }, [openFeedbackBottomSheet, productDetails]);
 
   return {
     productDetails,

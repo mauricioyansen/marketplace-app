@@ -8,7 +8,7 @@ import { ListFooter } from "./components/ListFooter";
 import { EmptyList } from "./components/EmptyList";
 import { Loading } from "./components/Loading";
 import { ProductError } from "./components/Error";
-import { AddToCardFooter } from "./components/AddToCardFooter";
+import { AddToCartFooter } from "./components/AddToCartFooter";
 
 export const ProductView: FC<ReturnType<typeof useProductViewModel>> = ({
   error,
@@ -51,7 +51,7 @@ export const ProductView: FC<ReturnType<typeof useProductViewModel>> = ({
         ListEmptyComponent={<EmptyList isLoadingComments={isCommentsLoading} />}
         contentContainerClassName="pb-6"
       />
-      <AddToCardFooter
+      <AddToCartFooter
         product={productDetails}
         handleAddToCart={handleAddToCart}
       />

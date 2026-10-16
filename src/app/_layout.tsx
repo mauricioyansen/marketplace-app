@@ -9,11 +9,12 @@ import { AppBottomSheet } from "../shared/components/AppBottomSheet";
 import ToastManager from "toastify-react-native";
 import { useUserStore } from "../shared/store/user-store";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { useNotifications } from "../shared/hooks/useNotification";
 
 const queryClient = new QueryClient();
 
 export default function RootLayout() {
-  const { token } = useUserStore();
+  useNotifications();
 
   return (
     <GestureHandlerRootView className="flex-1">
